@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiuqi.cms.persistance.AppQueryMapper">
+    <resultMap id="BaseResultMap" type="com.xiuqi.cms.persistance.po.AppQuery">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="query_name" property="queryName" jdbcType="VARCHAR"/>
+        <result column="query_name_en" property="queryNameEn" jdbcType="VARCHAR"/>
+        <result column="query_desc" property="queryDesc" jdbcType="VARCHAR"/>
+        <result column="query_sql" property="querySql" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, query_name, query_name_en, query_desc, create_time, update_time
+  </sql>
+
+    <select id="selectAppQueryById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from xq_app_query
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteAppQueryById" parameterType="java.lang.Integer">
+    delete from xq_app_query
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertAppQuery" parameterType="com.xiuqi.cms.persistance.po.AppQuery">
+        insert into xq_app_query
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="queryName != null">
+                query_name,
+            </if>
+            <if test="queryNameEn != null">
+                query_name_en,
+            </if>
+            <if test="queryDesc != null">
+                query_desc,
+            </if>
+            <if test="querySql != null">
+                query_sql,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="queryName != null">
+                #{queryName,jdbcType=VARCHAR},
+            </if>
+            <if test="queryNameEn != null">
+                #{queryNameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="queryDesc != null">
+                #{queryDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="querySql != null">
+                #{querySql,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAppQueryById" parameterType="com.xiuqi.cms.persistance.po.AppQuery">
+        update xq_app_query
+        <set>
+            <if test="queryName != null">
+                query_name = #{queryName,jdbcType=VARCHAR},
+            </if>
+            <if test="queryNameEn != null">
+                query_name_en = #{queryNameEn,jdbcType=VARCHAR},
+            </if>
+            <if test="queryDesc != null">
+                query_desc = #{queryDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="querySql != null">
+                query_sql = #{querySql,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAppQueryList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from xq_app_query
+    </select>
+
+</mapper>
